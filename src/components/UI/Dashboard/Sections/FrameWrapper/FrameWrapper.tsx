@@ -82,10 +82,8 @@ export const FrameWrapper = ({ userData, statsData }: FrameWrapperProps): JSX.El
                                 </div>
                                 <div className="flex items-center justify-center">
                                     <div className="[font-family:'Outfit',Helvetica] font-medium text-blue-600 text-base">
-                       git pull --no-rebase --allow-unrelated-histories origin main
-                 {stat.value}
-                       git pull --no-rebase --allow-unrelated-histories origin main
-             </div>
+                                        {stat.value}
+                                    </div>
                                 </div>
                             </div>
                             {index < statsData.length - 1 && (
