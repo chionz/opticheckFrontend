@@ -24,9 +24,6 @@ interface FrameWrapperProps {
 export const FrameWrapper = ({ userData, statsData }: FrameWrapperProps): JSX.Element => {
     // User data
     /* const userData = {
-export const FrameWrapper = (): JSX.Element => {
-    // User data
-    const userData = {
         name: "Oge",
         lastTest: "May 5, 2025",
         avatarSrc: "/ellipse-35.png",
@@ -43,11 +40,9 @@ export const FrameWrapper = (): JSX.Element => {
             value: "10",
         },
         {
-            labegit pull --no-rebase --allow-unrelated-histories origin main
-l: "Next Text",
+            label: "Next Text",
             value: "5 days",
-        },git pull --no-rebase --allow-unrelated-histories origin main
-
+        },
     ]; */
 
     return (
