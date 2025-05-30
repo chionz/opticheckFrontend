@@ -24,6 +24,9 @@ interface FrameWrapperProps {
 export const FrameWrapper = ({ userData, statsData }: FrameWrapperProps): JSX.Element => {
     // User data
     /* const userData = {
+export const FrameWrapper = (): JSX.Element => {
+    // User data
+    const userData = {
         name: "Oge",
         lastTest: "May 5, 2025",
         avatarSrc: "/ellipse-35.png",
@@ -40,9 +43,11 @@ export const FrameWrapper = ({ userData, statsData }: FrameWrapperProps): JSX.El
             value: "10",
         },
         {
-            label: "Next Text",
+            labegit pull --no-rebase --allow-unrelated-histories origin main
+l: "Next Text",
             value: "5 days",
-        },
+        },git pull --no-rebase --allow-unrelated-histories origin main
+
     ]; */
 
     return (
@@ -82,8 +87,10 @@ export const FrameWrapper = ({ userData, statsData }: FrameWrapperProps): JSX.El
                                 </div>
                                 <div className="flex items-center justify-center">
                                     <div className="[font-family:'Outfit',Helvetica] font-medium text-blue-600 text-base">
-                                        {stat.value}
-                                    </div>
+                       git pull --no-rebase --allow-unrelated-histories origin main
+                 {stat.value}
+                       git pull --no-rebase --allow-unrelated-histories origin main
+             </div>
                                 </div>
                             </div>
                             {index < statsData.length - 1 && (
