@@ -7,9 +7,23 @@ import {
 import { Card, CardContent } from "../../../../../components/UI/ux/card";
 import { Separator } from "../../../../../components/UI/ux/separator";
 
-export const FrameWrapper = (): JSX.Element => {
+
+// Define prop types
+interface FrameWrapperProps {
+    userData: {
+        name: string;
+        lastTest: string;
+        avatarSrc?: string;
+    };
+    statsData: {
+        label: string;
+        value: string;
+    }[];
+}
+
+export const FrameWrapper = ({ userData, statsData }: FrameWrapperProps): JSX.Element => {
     // User data
-    const userData = {
+    /* const userData = {
         name: "Oge",
         lastTest: "May 5, 2025",
         avatarSrc: "/ellipse-35.png",
@@ -29,7 +43,7 @@ export const FrameWrapper = (): JSX.Element => {
             label: "Next Text",
             value: "5 days",
         },
-    ];
+    ]; */
 
     return (
         <div className="flex flex-col w-full items-start gap-[25px] p-4 bg-white">

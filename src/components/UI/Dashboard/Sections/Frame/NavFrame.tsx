@@ -30,7 +30,7 @@ const fallbackUser: User = {
 };
 
 export const NavFrame = ({ user = fallbackUser }: NavFrameProps): JSX.Element => {
-    const initials = user.name
+    const initials = `${user.first_name}`
         .split(" ")
         .map((n) => n[0])
         .join("")
@@ -80,7 +80,7 @@ export const NavFrame = ({ user = fallbackUser }: NavFrameProps): JSX.Element =>
                     <div className="flex flex-col items-start justify-center">
                         <div className="flex items-center gap-[6.1px] w-full">
                             <div className="font-medium text-[#1d1d1d] text-base font-['Outfit',Helvetica]">
-                                Hello {user.name.split(" ")[0]}!
+                                Hello {`${user.first_name}`.split(" ")[0]}!
                             </div>
                         </div>
 

@@ -39,20 +39,24 @@ export const Dashboard = (): JSX.Element => {
         setShowFallback(false); // ✅ Reset fallback on retry
 
         try {
-            const accessToken = localStorage.getItem("accessToken");
-            const refreshToken = localStorage.getItem("refreshToken");
+            const access_token = localStorage.getItem("access_token");
+            const refresh_token = localStorage.getItem("refresh_token");
 
-            if (!accessToken && !refreshToken) {
+            if (!access_token && !refresh_token) {
                 throw new Error("No valid session found. Please log in again.");
             }
 
-            const response = await api.get("/api/v1/dashboard/me", {
+            const response = await api.post("/api/v1/dashboard/me", { refresh_token }, {
                 headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
+                    Authorization: `Bearer ${access_token}`,
+                    credentials: "include"
+                }
+            },
+            );
 
-            setUserData(response.data);
+            const userinfo = response.data
+            console.log(userinfo)
+            setUserData(userinfo.data);
 
             if (!localStorage.getItem("permissionsGranted")) {
                 setIsPermissionModalOpen(true);
@@ -60,14 +64,14 @@ export const Dashboard = (): JSX.Element => {
         } catch (err: any) {
             console.error("Error fetching dashboard data:", err);
 
-            if (err.response?.status === 401 && localStorage.getItem("refreshToken")) {
+            if (err.response?.status === 401 && localStorage.getItem("refresh_token")) {
                 try {
                     const refreshResponse = await api.post(
                         "/api/v1/auth/refresh-access-token",
                         {},
                         {
                             headers: {
-                                Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
+                                Authorization: `Bearer ${localStorage.getItem("refresh_token")}`,
                             },
                         }
                     );
@@ -87,9 +91,9 @@ export const Dashboard = (): JSX.Element => {
     };
 
     useEffect(() => {
-        const accessToken = localStorage.getItem("accessToken");
-        const refreshToken = localStorage.getItem("refreshToken");
-        if (accessToken || refreshToken) {
+        const access_token = localStorage.getItem("access_token");
+        const refresh_token = localStorage.getItem("refresh_token");
+        if (access_token || refresh_token) {
             fetchUserData();
         }
     }, []);
@@ -197,15 +201,29 @@ export const Dashboard = (): JSX.Element => {
             </header>
 
             <div className={`fixed top-0 left-0 h-full w-[245px] bg-[#f4f5f7] shadow-lg transform transition-transform duration-300 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}`}>
-                <NavFrame user={userData?.profile} />
+                <NavFrame user={userData?.user} />
             </div>
 
             <main className="flex-1">
                 <div className="p-4">
-                    <h1 className="text-xl font-bold">Welcome, {userData?.profile?.name || "User"}!</h1>
-                    <p>Your last test was on {userData?.profile?.lastTestDate || "N/A"}.</p>
+                    <h1 className="text-xl font-bold">Welcome, {userData?.user?.first_name || "User"}!</h1>
+                    <p>Your last test was on {userData?.test_taken || "N/A"}.</p>
                 </div>
-                <FrameWrapper />
+                {userData && (
+                        <FrameWrapper
+                            userData={{
+                                name: userData?.user?.first_name,
+                                lastTest: userData.last_test || "N/A", // adjust based on your API
+                                avatarSrc: userData.avatar || undefined
+                            }}
+                            statsData={[
+                                { label: "Vision Score", value: userData.vision_score || "N/A" },
+                                { label: "Test Taken", value: userData.test_taken?.toString() || "0" },
+                                { label: "Next Test", value: userData.next_test || "N/A" },
+                            ]}
+                        />
+                    )}
+
                 <Frame />
             </main>
         </div>

@@ -53,14 +53,15 @@ function Signin() {
         setLoading(true);
         try {
             const res = await api.post("/api/v1/auth/login", { email, password });
-            const { token, refresh_token } = res.data;
+            //const { token, refresh_token } = res.data;
+            const usertoken = res.data.data
 
-            localStorage.setItem("token", token);
-            localStorage.setItem("refresh_token", refresh_token);
+            localStorage.setItem("access_token", usertoken.access_token);
+            localStorage.setItem("refresh_token", usertoken.refresh_token);
 
             toast.success("Signin successful!");
             // dashboard page
-            navigate("/Onboarding");
+            navigate("/dashboard");
         } catch (err: any) {
             toast.error(err.response?.data?.message || "Signin failed. Please try again.");
         } finally {
@@ -198,7 +199,7 @@ function Signin() {
                     </div>
                 </div>
 
-                <div className="flex justify-end mb-8">
+                <div className="flex justify-end mb-8">Signup
                     <Link to="/forgot-password" className="text-[#1d1d1d] font-medium">Forgot password?</Link>
                 </div>
             </div>
